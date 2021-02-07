@@ -1,8 +1,8 @@
-@extends('layouts/master', ['title' => 'Acceuil' ])
+@extends('layouts/app', ['title' => 'Acceuil' ])
 
 @section('content')
     <p>
-        Apprendre laravel 7.0.x 
+        Apprendre laravel 7.0.x
     </p>
 @endsection
 
@@ -14,6 +14,6 @@
 
 @push('script.header')
     <style>
-    
+
     </style>
 @endpush

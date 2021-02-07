@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,18 +14,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
 
-    return view('welcome');
-});
 
-Route::get('a-propos', function () {
-    return view('pages.about');
-});
-
-Route::view('contact', 'pages.contact');
-
+Route::view('/', 'welcome');
+Route::view('a-propos', 'pages.about');
 Route::get('events', 'EventsController@list');
 
-Route::get('clients', 'ClientsController@list');
-Route::post('clients', 'ClientsController@store');
+//Client
+//Route::get('clients', 'ClientsController@index');
+//Route::post('clients', 'ClientsController@store');
+//Route::get('clients/create', 'ClientsController@create');
+//Route::get('clients/{client}', 'ClientsController@show');
+//Route::get('clients/{client}/edit', 'ClientsController@edit');
+//Route::patch('clients/{client}', 'ClientsController@update');
+//Route::delete('clients/{client}', 'ClientsController@destroy');
+Route::resource('clients', 'ClientsController');
+
+//Contact
+Route::get('contact', 'ContactController@create')->name('contact.create');
+Route::post('contact', 'ContactController@store')->name('contact.store');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

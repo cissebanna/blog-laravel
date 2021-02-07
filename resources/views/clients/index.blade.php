@@ -1,36 +1,33 @@
-@extends('layouts.master');
+@extends('layouts.app');
 
 @section('content')
 
 <h1>Clients</h1>
+
+<a href="{{route('clients.create') }}" class="btn btn-primary my-3"> Nouveau Client</a>
 <p>
     <ul>
-        @foreach ($clients as $client)
-            <li>
-            {{ $client->name }} <em class="text-muted"> {{ $client->email }}</em>
-            </li>    
-        @endforeach
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Status</th>
+                <th scope="col">Entreprise</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($clients as $client)
+                <tr>
+                <th scope="row">{{ $client->id }}</th>
+                <td><a href="/clients/{{ $client->id }}">{{ $client->name }}</td>
+                <td>{{ $client->status }}</a></td>
+                <td>{{ $client->entreprise->name }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </ul>
 </p>
-<hr>
 
-<form action="/clients" method="POST">
-    @csrf
-    <div class="form-group">
-        <input type="text" class="form-control @error('pseudo') is-invalid @enderror" name="pseudo" placeholder="Rentrer votre pseudo">
-        @error('pseudo')
-            <div class="alert alert-danger">{{ $errors->first('pseudo') }}</div>
-        @enderror
-    </div>
-
-    <div class="form-group">
-        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Rentrer votre email">
-        @error('email')
-            <div class="alert alert-danger">{{ $errors->first('email') }}</div>
-        @enderror
-    </div>
-
-    <button type="submit" class="btn btn-primary">Ajouter un client</button>
-</form>
-    
 @endsection
